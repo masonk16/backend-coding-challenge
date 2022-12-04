@@ -11,6 +11,9 @@ class TalentBase(BaseModel):
     office_city: str
     office_postal_code: str 
 
+class TalentCreate(TalentBase):
+    pass
+
 class Talent(TalentBase):
     class Config:
         orm_mode = True
@@ -21,15 +24,21 @@ class ClientBase(BaseModel):
     name: str
     industry: str
 
+class ClientCreate(BaseModel):
+    pass
+
 class Client(ClientBase):
     class Config:
         orm_mode = True
 
-class SkillBase(BaseModel):
+class SkillsBase(BaseModel):
     name: str
     category: str
 
-class Skill(SkillBase):
+class SkillsCreate(SkillsBase):
+    pass
+
+class Skills(SkillsBase):
     class Config:
         orm_mode = True
 
@@ -40,12 +49,19 @@ class PlanningBase(BaseModel):
     start_date: datetime
     end_date: datetime
 
+class PlanningCreate(PlanningBase):
+    talent_id: str
+    manager_id: str
+    client_id: str
+    required_skills: list[str]
+    optional_skills: list[str]
+
 class Planning(PlanningBase):
     talent: Talent | None = None
     manager: Talent
     client: Client
-    required_skills: list[Skill] = []
-    optional_skills: list[Skill] = []
+    required_skills: list[Skills] = []
+    optional_skills: list[Skills] = []
     is_unassigned: bool
     class Config:
         orm_mode = True

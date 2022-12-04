@@ -6,10 +6,7 @@ class TalentBase(BaseModel):
     id: str
     name: str
     talent_grade: str | None = None
-    booking_grade: str | None = None
-    operating_unit: str
-    office_city: str
-    office_postal_code: str 
+     
 
 class TalentCreate(TalentBase):
     pass
@@ -18,7 +15,18 @@ class Talent(TalentBase):
     class Config:
         orm_mode = True
 
+class ManagerBase(BaseModel):
+    id: str
+    name: str
 
+class Manager(ManagerBase):
+    pass
+
+class ManagerCreate(ManagerBase):
+    
+    class Config:
+        orm_mode = True
+        
 class ClientBase(BaseModel):
     id: str
     name: str
@@ -45,6 +53,10 @@ class Skills(SkillsBase):
 class PlanningBase(BaseModel):
     id: int
     original_id: str
+    booking_grade: str | None = None
+    operating_unit: str
+    office_city: str
+    office_postal_code: str
     total_hours: float
     start_date: datetime
     end_date: datetime
@@ -58,7 +70,7 @@ class PlanningCreate(PlanningBase):
 
 class Planning(PlanningBase):
     talent: Talent | None = None
-    manager: Talent
+    manager: Manager
     client: Client
     required_skills: list[Skills] = []
     optional_skills: list[Skills] = []

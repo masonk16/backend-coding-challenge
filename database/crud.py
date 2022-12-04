@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-
-from . import models, schemas
+import models
+import schemas
+#from . import models, schemas
 
 
 def get_talent(db: Session, id: str):
@@ -15,6 +16,20 @@ def create_talent(db: Session, talent: schemas.TalentCreate):
     db.commit()
     db.refresh(db_talent)
     return db_talent
+
+def get_manager(db: Session, id: str):
+    return get_talent(db, id)
+
+
+def get_managers(db: Session, skip: int = 0, limit: int = 100):
+    return get_talents(db, skip, limit)
+
+
+def create_manager(db: Session, manager: schemas.ManagerCreate):
+    db_manager = models.Talent(**vars(manager))
+    db.add(db_manager)
+    db.commit()
+    return db_manager
 
 def get_client(db: Session, id: str):
     return db.query(models.Client).filter(models.Client.id == id).first()

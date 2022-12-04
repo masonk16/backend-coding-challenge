@@ -1,18 +1,14 @@
 from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from database import Base
 
 class Talent(Base):
     __tablename__ = "talent"
 
     id = Column(String, primary_key=True)
     name = Column(String)
-    talent_grade = Column(String)
-    booking_grade = Column(String)
-    operating_unit = Column(String, nullable=False)
-    office_city = Column(String)
-    office_postal_code = Column(String, nullable=False) 
+    talent_grade = Column(String) 
 
 class Client(Base):
     __tablename__ = "client"
@@ -50,13 +46,13 @@ class Planning(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     original_id = Column(String, unique=True, nullable=False)
     talent_id = Column(String, ForeignKey("talent.id"))
-    talent_name = relationship("Talent", foreign_keys=[talent_id])
-    booking_grade = relationship("Talent", foreign_keys=[talent_id])
-    operating_unit = relationship("Talent", foreign_keys=[talent_id])
-    office_city = relationship("Talent", foreign_keys=[talent_id])
-    office_postal_code = relationship("Talent", foreign_keys=[talent_id])
+    talent = relationship("Talent", foreign_keys=[talent_id])
+    booking_grade = Column(String)
+    operating_unit = Column(String, nullable=False)
+    office_city = Column(String)
+    office_postal_code = Column(String, nullable=False)
     job_manager_id = Column(String, ForeignKey("talent.id"))
-    job_manager_name = relationship("Talent", foreign_keys=[job_manager_id])
+    job_manager = relationship("Talent", foreign_keys=[job_manager_id])
     total_hours = Column(Float, nullable=False)
     start_date = Column(DateTime, nullable=False)
     end_date = Column(DateTime, nullable=False)

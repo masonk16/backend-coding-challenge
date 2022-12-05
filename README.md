@@ -66,3 +66,17 @@ in `planning.json`, which contains around 10k records.
 
 For any additional questions on the task please feel free to email
 `sundara.amancharla@aspaara.com`.
+
+### How to run:
+
+- Install required libraries
+`pip install -r requirements.txt`
+
+- Populate database using JSON file
+`python populate_db.py`
+
+- Start server
+`uvicorn database.main:app --reload`
+
+- In your browser enter `localhost:8000/docs` or `127.0.0.1:8000/docs` to test the APIs.
+

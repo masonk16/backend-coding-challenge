@@ -6,49 +6,59 @@ class TalentBase(BaseModel):
     id: str
     name: str
     talent_grade: str | None = None
-     
+
 
 class TalentCreate(TalentBase):
     pass
+
 
 class Talent(TalentBase):
     class Config:
         orm_mode = True
 
+
 class ManagerBase(BaseModel):
     id: str
     name: str
 
+
 class Manager(ManagerBase):
     pass
 
+
 class ManagerCreate(ManagerBase):
-    
     class Config:
         orm_mode = True
-        
+
+
 class ClientBase(BaseModel):
     id: str
     name: str
     industry: str
 
-class ClientCreate(BaseModel):
+
+class ClientCreate(ClientBase):
     pass
+
 
 class Client(ClientBase):
     class Config:
         orm_mode = True
 
+
 class SkillsBase(BaseModel):
     name: str
     category: str
 
+
 class SkillsCreate(SkillsBase):
     pass
+
 
 class Skills(SkillsBase):
     class Config:
         orm_mode = True
+
 
 class PlanningBase(BaseModel):
     id: int
@@ -61,12 +71,14 @@ class PlanningBase(BaseModel):
     start_date: datetime
     end_date: datetime
 
+
 class PlanningCreate(PlanningBase):
     talent_id: str
     manager_id: str
     client_id: str
     required_skills: list[str]
     optional_skills: list[str]
+
 
 class Planning(PlanningBase):
     talent: Talent | None = None
@@ -75,5 +87,6 @@ class Planning(PlanningBase):
     required_skills: list[Skills] = []
     optional_skills: list[Skills] = []
     is_unassigned: bool
+
     class Config:
         orm_mode = True

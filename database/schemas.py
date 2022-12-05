@@ -1,6 +1,9 @@
 from datetime import datetime
 from pydantic import BaseModel
 
+"""
+Pydantic models to define more or less a "schema" (a valid data shape).
+"""
 
 class TalentBase(BaseModel):
     id: str

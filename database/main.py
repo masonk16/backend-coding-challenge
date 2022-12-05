@@ -6,6 +6,10 @@ from . import models
 from . import schemas
 from .database import SessionLocal, engine
 
+"""
+Main application containing routes to retrieve planning information.
+"""
+
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()

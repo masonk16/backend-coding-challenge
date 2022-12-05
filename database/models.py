@@ -12,6 +12,9 @@ from sqlalchemy.orm import relationship
 
 from database.database import Base
 
+"""
+SQLALchemy models for interaction with the database.
+"""
 
 class Talent(Base):
     __tablename__ = "talent"

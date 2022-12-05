@@ -4,11 +4,11 @@ from sqlalchemy.orm import Session
 # import schemas
 from . import models, schemas
 
+"""
+CRUD utilities to get and creat  records in the database.
+"""
 
 def get_talent(db: Session, id: str):
-    """
-    Gets tale
-    """
     return db.query(models.Talent).filter(models.Talent.id == id).first()
 
 

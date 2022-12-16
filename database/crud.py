@@ -8,6 +8,7 @@ from . import models, schemas
 CRUD utilities to get and creat  records in the database.
 """
 
+
 def get_talent(db: Session, id: str):
     return db.query(models.Talent).filter(models.Talent.id == id).first()
 
@@ -61,6 +62,9 @@ def get_skill(db: Session, name: str):
 
 def get_skills(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Skills).offset(skip).limit(limit).all()
+
+def filter_skills(db: Session, category: str):
+    return db.query(models.Skills).filter(models.Skills.category == category).all()
 
 
 def create_skill(db: Session, skills: schemas.SkillsCreate):

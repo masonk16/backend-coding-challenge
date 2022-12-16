@@ -16,6 +16,7 @@ app = FastAPI()
 
 add_pagination(app)
 
+
 # Dependency
 def get_db():
     db = SessionLocal()
@@ -56,6 +57,14 @@ def read_clients(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
 @app.get("/skills/", response_model=schemas.Skills)
 def read_skills(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     skills = crud.get_skills(db, skip=skip, limit=limit)
+    return skills
+
+
+@app.get("/skills/{category}")
+def filter_skills(category: str, db: Session = Depends(get_db)):
+    skills = crud.filter_skills(db, category=category)
+    if skills is None:
+        raise HTTPException(status_code=4040, detail="Skills not found")
     return skills
 
 

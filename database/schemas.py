@@ -1,14 +1,16 @@
 from datetime import datetime
 from pydantic import BaseModel
+from typing import Dict, List
 
 """
 Pydantic models to define more or less a "schema" (a valid data shape).
 """
 
+
 class TalentBase(BaseModel):
     id: str
     name: str
-    talent_grade: str | None = None
+    grade: str | None = None
 
 
 class TalentCreate(TalentBase):
@@ -71,8 +73,8 @@ class PlanningBase(BaseModel):
     office_city: str
     office_postal_code: str
     total_hours: float
-    start_date: datetime
-    end_date: datetime
+    start_date: str
+    end_date: str
 
 
 class PlanningCreate(PlanningBase):

@@ -16,12 +16,13 @@ from database.database import Base
 SQLALchemy models for interaction with the database.
 """
 
+
 class Talent(Base):
     __tablename__ = "talent"
 
     id = Column(String, primary_key=True)
     name = Column(String)
-    talent_grade = Column(String)
+    grade = Column(String)
 
 
 class Client(Base):
@@ -32,19 +33,19 @@ class Client(Base):
     industry = Column(String)
 
 
-required_skill = Table(
-    "required_skill",
-    Base.metadata,
-    Column("planning_id", Integer, ForeignKey("planning.id")),
-    Column("skill", String, ForeignKey("skills.name")),
-)
-
-optional_skill = Table(
-    "optional_skill",
-    Base.metadata,
-    Column("planning_id", Integer, ForeignKey("planning.id")),
-    Column("skill", String, ForeignKey("skills.name")),
-)
+# required_skill = Table(
+#     "required_skill",
+#     Base.metadata,
+#     Column("planning_id", Integer, ForeignKey("planning.id")),
+#     Column("skill", String, ForeignKey("skills.name")),
+# )
+#
+# optional_skill = Table(
+#     "optional_skill",
+#     Base.metadata,
+#     Column("planning_id", Integer, ForeignKey("planning.id")),
+#     Column("skill", String, ForeignKey("skills.name")),
+# )
 
 
 class Skills(Base):
@@ -52,12 +53,12 @@ class Skills(Base):
 
     name = Column(String, primary_key=True)
     category = Column(String)
-    skills_required = relationship(
-        "Planning", secondary=required_skill, back_populates="required_skills"
-    )
-    skills_optional = relationship(
-        "Planning", secondary=optional_skill, back_populates="optional_skills"
-    )
+    # skills_required = relationship(
+    #     "Planning", secondary=required_skill, back_populates="required_skills"
+    # )
+    # skills_optional = relationship(
+    #     "Planning", secondary=optional_skill, back_populates="optional_skills"
+    # )
 
 
 class Planning(Base):
@@ -74,16 +75,16 @@ class Planning(Base):
     job_manager_id = Column(String, ForeignKey("talent.id"))
     job_manager = relationship("Talent", foreign_keys=[job_manager_id])
     total_hours = Column(Float, nullable=False)
-    start_date = Column(DateTime, nullable=False)
-    end_date = Column(DateTime, nullable=False)
+    start_date = Column(String, nullable=False)
+    end_date = Column(String, nullable=False)
     client_id = Column(String, ForeignKey("client.id"))
     client_name = relationship("Client", foreign_keys=[client_id], viewonly=True)
     industry = relationship("Client", foreign_keys=[client_id])
     is_unassigned = Column(Boolean)
 
-    required_skills = relationship(
-        "Skills", secondary=required_skill, back_populates="skills_required"
-    )
-    optional_skills = relationship(
-        "Skills", secondary=optional_skill, back_populates="skills_optional"
-    )
+    # required_skills = relationship(
+    #     "Skills", secondary=required_skill, back_populates="skills_required"
+    # )
+    # optional_skills = relationship(
+    #     "Skills", secondary=optional_skill, back_populates="skills_optional"
+    # )

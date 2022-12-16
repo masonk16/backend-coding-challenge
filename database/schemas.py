@@ -2,9 +2,6 @@ from datetime import datetime
 from pydantic import BaseModel
 from typing import Dict, List
 
-"""
-Pydantic models to define more or less a "schema" (a valid data shape).
-"""
 
 
 class TalentBase(BaseModel):
